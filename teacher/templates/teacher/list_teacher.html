@@ -3,6 +3,12 @@
 {% block title %}Lista docentes{% endblock %}
 {% block content %}
     <h1 class="title">Lista docentes</h1>
-    <p>Mira para crear de maestros <a href="{% url 'teacher:create_teacher' %}">click aquí</a></p>
-    <p><a href="{% url 'teacher:home' %}">volver</a></p>
+    <a href="{% url 'teacher:create_teacher' %}">
+        <button class="button is-primary is-medium">Añadir docente</button>
+    </a>
+    <h2 id="subtitle">Teachers</h2>
+    {% for teacher in all_teachers %}
+        <a href="{% url 'teacher:show_info' teacher.0 %}">{{ teacher.1 }}</a>
+    {% endfor %}
+    <button class="button is-small is-info"><a href="{% url 'teacher:home' %}">Volver</a></button>
 {% endblock %}
