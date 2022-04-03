@@ -39,7 +39,8 @@ class CreateTeacherView(View):
                 work_hour = form.cleaned_data.get('work_hour')
                 value_work = form.cleaned_data.get('value_work')
 
-                t, created = Teacher.objects.get_or_create(nit=nit, name=name, work_hour=work_hour,value_work=value_work)
+                t, created = Teacher.objects.get_or_create(nit=nit, name=name, work_hour=work_hour,
+                                                           value_work=value_work)
                 t.save()
                 return redirect('teacher:home')
         context = {

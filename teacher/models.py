@@ -1,10 +1,13 @@
-from django.db import models
-from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator
+from django.db import models
 
-def validatorNit(value):
-    if 1000000 >=value<=9999999999:
-        raise ValidationError("escriba bien el numero de la cedula",params={'value':value},)  
+
+def validator_nit(value):
+    if 1000000 >= value <= 9999999999:
+        raise ValidationError("escriba bien el numero de la cédula", params={'value': value}, )
+
+
 extra_hour = 40
 value_extra_hour = 1.5
 parafiscal = 0.09
@@ -17,7 +20,7 @@ pension = 0.04
 
 
 class Teacher(models.Model):
-    nit = models.PositiveIntegerField(unique=True, validators=[validatorNit])
+    nit = models.PositiveIntegerField(unique=True, validators=[validator_nit])
     name = models.TextField(max_length=40, validators=[MinLengthValidator(3)])
     work_hour = models.PositiveIntegerField()
     value_work = models.FloatField()

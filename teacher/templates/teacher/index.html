@@ -2,19 +2,14 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="title">
-            Pagina de inicio
-        </h1>
-        <p class="subtitle">Programa de nómina para docentes </p>
-    </div>
-    <div class="container">
-        <a href="{% url 'teacher:list_teacher' %}">
-            <button class="button is-primary is-large">Lista de docentes</button>
-        </a>
-        <a href="{% url 'teacher:create_teacher' %}">
-            <button class="button is-primary is-large">Crear docente</button>
-        </a>
-    </div>
-
+    <h1 class="title">
+        Pagina de inicio
+    </h1>
+    <p class="subtitle">Programa de nómina para docentes </p>
+    <a href="{% url 'teacher:list_teacher' %}">
+        <button class="button is-primary is-large">Lista de docentes</button>
+    </a>
+    <a href="{% url 'teacher:create_teacher' %}">
+        <button class="button is-primary is-large">Crear docente</button>
+    </a>
 {% endblock %}
