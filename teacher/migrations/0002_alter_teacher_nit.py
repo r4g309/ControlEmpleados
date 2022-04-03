@@ -5,7 +5,6 @@ import teacher.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('teacher', '0001_initial'),
     ]

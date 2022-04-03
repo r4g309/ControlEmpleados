@@ -1,24 +1,24 @@
 {% extends 'teacher/base.html' %} {% block title %}Nuevo profesor{% endblock %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <div class="field">
-        <label class="label">Nit</label>
-        <div class="control">{{ form.nit }}</div>
-    </div>
-    <div class="field">
-        <label class="label">Name</label>
-        <div class="control">{{ form.name }}</div>
-    </div>
-    <div class="field">
-        <label class="label">Work hour</label>
-        <div class="control">{{ form.work_hour }}</div>
-    </div>
-    <div class="field">
-        <label class="label">Value work</label>
-        <div class="control">{{ form.value_work }}</div>
-    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Nit</label>
+            <div class="control">{{ form.nit }}</div>
+        </div>
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">{{ form.name }}</div>
+        </div>
+        <div class="field">
+            <label class="label">Work hour</label>
+            <div class="control">{{ form.work_hour }}</div>
+        </div>
+        <div class="field">
+            <label class="label">Value work</label>
+            <div class="control">{{ form.value_work }}</div>
+        </div>
 
-    <button class="button is-primary" type="submit">Create</button>
-</form>
+        <button class="button is-primary" type="submit">Create</button>
+    </form>
 {% endblock %}

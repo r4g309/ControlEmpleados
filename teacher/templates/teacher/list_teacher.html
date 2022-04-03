@@ -6,9 +6,13 @@
     <a href="{% url 'teacher:create_teacher' %}">
         <button class="button is-primary is-medium">Añadir docente</button>
     </a>
-    <h2 id="subtitle">Teachers</h2>
-    {% for teacher in all_teachers %}
-        <a href="{% url 'teacher:show_info' teacher.0 %}">{{ teacher.1 }}</a>
-    {% endfor %}
-    <button class="button is-small is-info"><a href="{% url 'teacher:home' %}">Volver</a></button>
+    <h2 id="subtitle ">Teachers</h2>
+    <table class="table is-striped">
+        {% for teacher in all_teachers %}
+            <tr>
+                <td><a href="{% url 'teacher:show_info' teacher.0 %}">{{ teacher.1|title }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'teacher:home' %}"><button class="button is-small is-info">Volver</button></a>
 {% endblock %}

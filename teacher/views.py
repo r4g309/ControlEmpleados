@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 
 from teacher.models import Teacher
@@ -53,6 +53,6 @@ class CreateTeacherView(View):
 class ShowInfo(View):
     def get(self, request, id_user, *args, **kwargs):
         context = {
-            'user': Teacher.objects.get(pk=id_user)
+            'user': get_object_or_404(Teacher, id=id_user)
         }
         return render(request, 'teacher/show_info.html', context)
