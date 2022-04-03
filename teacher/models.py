@@ -11,12 +11,12 @@ vacation = 0.0417
 health = 0.04
 pension = 0.04
 
+
 class Teacher(models.Model):
-    nit = models.PositiveIntegerField(unique=True,validators=[MinLengthValidator(6),MaxLengthValidator(10)])
+    nit = models.PositiveIntegerField(unique=True, validators=[MinLengthValidator(6), MaxLengthValidator(10)])
     name = models.TextField(max_length=40, validators=[MinLengthValidator(3)])
     work_hour = models.PositiveIntegerField()
     value_work = models.FloatField()
 
     def __str__(self):
         return self.name
-

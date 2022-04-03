@@ -1,0 +1,8 @@
+{% extends 'teacher/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Este es el home</h1>
+    <p>Mira la lista de maestros <a href="{% url 'teacher:home' %}">click aquí</a></p>
+    <p>Mira para crear de maestros <a href="{% url 'teacher:create_teacher' %}">click aquí</a></p>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'teacher/base.html' %}
+{% block title %}Nuevo profesor{% endblock %}
+{% block content %}
+    <form method="POST">
+        nit{{ form.nit }} name{{ form.name }} work hours{{ form.work_hour }} value
+        work{{ form.value_work }}
+    </form>
+{% endblock %}
