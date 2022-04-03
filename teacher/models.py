@@ -17,3 +17,6 @@ class Teacher(models.Model):
     work_hour = models.PositiveIntegerField()
     value_work = models.FloatField()
 
+    def __str__(self):
+        return self.name
+
