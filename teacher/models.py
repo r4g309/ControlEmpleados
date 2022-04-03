@@ -4,7 +4,7 @@ from django.db import models
 
 
 def validator_nit(value):
-    if 1000000 >= value <= 9999999999:
+    if not 1000000000 <= value <= 9999999999:
         raise ValidationError("escriba bien el numero de la cédula", params={'value': value}, )
 
 

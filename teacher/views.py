@@ -15,8 +15,9 @@ class HomeView(View):
 
 class ListTeacherView(View):
     def get(self, request, *args, **kwargs):
+        all_teachers = Teacher.objects.values_list('id', 'name')
         context = {
-
+            'all_teachers': all_teachers,
         }
         return render(request, 'teacher/list_teacher.html', context)
 
@@ -47,3 +48,11 @@ class CreateTeacherView(View):
 
         }
         return render(request, 'teacher/create_teacher.html', context)
+
+
+class ShowInfo(View):
+    def get(self, request, id_user, *args, **kwargs):
+        context = {
+            'user': Teacher.objects.get(pk=id_user)
+        }
+        return render(request, 'teacher/show_info.html', context)
