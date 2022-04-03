@@ -21,7 +21,7 @@ pension = 0.04
 
 class Teacher(models.Model):
     nit = models.PositiveIntegerField(unique=True, validators=[validator_nit])
-    name = models.TextField(max_length=40, validators=[MinLengthValidator(3)])
+    name = models.CharField(max_length=40, validators=[MinLengthValidator(3)])
     work_hour = models.PositiveIntegerField()
     value_work = models.FloatField()
 
