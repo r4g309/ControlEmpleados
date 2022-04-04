@@ -3,7 +3,7 @@ from .models import Teacher
 
 
 class TeacherCreateForm(forms.ModelForm):
-    nit = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Document number'}),
+    cc = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Document number'}),
                              required=True)
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Full name'}), required=True)
     work_hour = forms.IntegerField(
@@ -13,4 +13,4 @@ class TeacherCreateForm(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ('nit', 'name', 'work_hour', 'value_work')
+        fields = ('cc', 'name', 'work_hour', 'value_work')

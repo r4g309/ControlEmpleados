@@ -1,26 +1,34 @@
-{% extends 'teacher/base.html' %}
-{% block title %}{{ user.name }}{% endblock %}
-
+{% extends 'teacher/base.html' %} {% block title %}{{ user.name }}{% endblock %}
 {% block content %}
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                {{ user.name|title }}
-            </p>
-            <button class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-            </button>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                <strong>Name: </strong>{{ user.name }}<br>
-                <strong>Nit: </strong>{{ user.nit }}<br>
-                <strong>Work Hour: </strong>{{ user.work_hour }}<br>
-                <strong>Value Work: </strong>{{ user.value_work }}<br>
-            </div>
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">{{ user.name|title }}</p>
+        <button class="card-header-icon" aria-label="more options">
+            <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </button>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <strong>Name: </strong>{{ user.name }}<br />
+            <strong>CC: </strong>{{ user.cc }}<br />
+            <strong>Work Hour: </strong>{{ user.work_hour }}<br />
+            <strong>Value Work: </strong>$ {{ user.value_work }}<br />
+            <strong>Gross Salary: </strong>$ {{ gross }}<br />
+            <strong>Extras: </strong>$ {{ extras }}<br />
+            <strong>Parafiscal: </strong>$ {{ parafiscal }}<br />
+            <strong>Bonus: </strong>$ {{ bonus }}<br />
+            <strong>Severance: </strong>$ {{ severance }}<br />
+            <strong>Severance Interest: </strong>$ {{ severance_interest }}<br />
+            <strong>Vacation: </strong>$ {{ vacation }}<br />
+            <strong>Health: </strong>$ {{ health }}<br />
+            <strong>Pension: </strong>$ {{ pension }}<br />
+            <strong>Salary: </strong>$ {{ salary }}<br />
         </div>
     </div>
-    <a href="{% url 'teacher:list_teacher' %}"><button class="button is-primary is-small">Atrás</button></a>
+</div>
+<a href="{% url 'teacher:list_teacher' %}"
+    ><button class="button is-primary is-small">Atrás</button></a
+>
 {% endblock %}

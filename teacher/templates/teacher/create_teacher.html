@@ -3,8 +3,8 @@
     <form method="POST">
         {% csrf_token %}
         <div class="field">
-            <label class="label">Nit</label>
-            <div class="control">{{ form.nit }}</div>
+            <label class="label">CC</label>
+            <div class="control">{{ form.cc }}</div>
         </div>
         <div class="field">
             <label class="label">Name</label>
@@ -20,5 +20,6 @@
         </div>
 
         <button class="button is-primary" type="submit">Create</button>
+        <a href="{% url 'teacher:home' %}"><button class="button is-primary is-small">Atrás</button></a>
     </form>
 {% endblock %}

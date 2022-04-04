@@ -3,27 +3,16 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 
 
-def validator_nit(value):
+def validator_cc(value):
     if not 10000000 <= value <= 9999999999:
         raise ValidationError(
-            "escriba bien el numero de la cédula",
+            "Invalid number",
             params={"value": value},
         )
 
 
-extra_hour = 40
-value_extra_hour = 1.5
-parafiscal = 0.09
-bonus = 0.0833
-severance = 0.0833
-severance_interest = 0.01
-vacation = 0.0417
-health = 0.04
-pension = 0.04
-
-
 class Teacher(models.Model):
-    nit = models.PositiveIntegerField(unique=True, validators=[validator_nit])
+    cc = models.PositiveIntegerField(unique=True, validators=[validator_cc])
     name = models.CharField(max_length=100, validators=[MinLengthValidator(3)])
     work_hour = models.PositiveIntegerField()
     value_work = models.FloatField()
@@ -33,11 +22,9 @@ class Teacher(models.Model):
 
     @staticmethod
     def calculate_extras_hours(work_hour, value_hour, extra_hour, value_extra_hour):
-        gross_balance = work_hour * value_hour
         if work_hour >= extra_hour:
-            extras = extra_hour - work_hour
-            gross_balance += extras * (value_hour * value_extra_hour)
-        return gross_balance
+            extras = work_hour - extra_hour
+            return extras * (value_hour * value_extra_hour)
 
     @staticmethod
     def calculate_parafiscals(gross_balace, parafiscal):
