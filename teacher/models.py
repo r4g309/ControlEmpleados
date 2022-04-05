@@ -25,6 +25,7 @@ class Teacher(models.Model):
         if work_hour >= extra_hour:
             extras = work_hour - extra_hour
             return extras * (value_hour * value_extra_hour)
+        return 0
 
     @staticmethod
     def calculate_parafiscals(gross_balace, parafiscal):
