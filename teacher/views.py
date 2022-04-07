@@ -8,11 +8,11 @@ extra_hour = 40
 value_extra_hour = 1.5
 parafiscal_enterprise = 0.09
 parafiscal_worker = 0.08
-#0.0833 mensual 0.01917040255
+# 0.0833 mensual 0.01917040255
 bonus = 0.01917040255
 severance = 0.01917040255
 severance_interest = 0.01
-#0.0417 mensual 0.00959670812
+# 0.0417 mensual 0.00959670812
 vacation = 0.00959670812
 
 health = 0.04
@@ -73,13 +73,16 @@ class ShowInfo(View):
             ),
             2,
         )
-        value_parafiscal = round(
-            Teacher.calculate_parafiscals(gross_value, parafiscal), 2
+        value_parafiscal_enterprise = round(
+            Teacher.calculate_parafiscal_enterprise(gross_value, value_extras, parafiscal_enterprise), 2
+        )
+        value_parafiscal_worker = round(
+            Teacher.calculate_parafiscal_worker(gross_value, value_extras, parafiscal_worker), 2
         )
         value_bonus = round(Teacher.calculate_bonus(gross_value, bonus), 2)
         value_severance = round(Teacher.calculate_severance(gross_value, severance), 2)
         value_severance_interest = round(
-            Teacher.calculate_severance_interest(gross_value, severance_interest), 2
+            Teacher.calculate_severance_interest(value_severance, severance_interest), 2
         )
         value_vacation = round(Teacher.calculate_vacation(gross_value, vacation), 2)
         value_health = round(Teacher.calculate_health(gross_value, health), 2)
@@ -118,4 +121,4 @@ class ShowInfo(View):
 class ShowAllTeachers(View):
     def get(self, requets, *args, **kwargs):
         context = {}
-        return render(requets,"teacher/show_all.html",context)
+        return render(requets, "teacher/show_all.html", context)
