@@ -6,11 +6,15 @@ from .forms import TeacherCreateForm
 
 extra_hour = 40
 value_extra_hour = 1.5
-parafiscal = 0.09
-bonus = 0.0833
-severance = 0.0833
+parafiscal_enterprise = 0.09
+parafiscal_worker = 0.08
+#0.0833 mensual 0.01917040255
+bonus = 0.01917040255
+severance = 0.01917040255
 severance_interest = 0.01
-vacation = 0.0417
+#0.0417 mensual 0.00959670812
+vacation = 0.00959670812
+
 health = 0.04
 pension = 0.04
 
@@ -84,7 +88,7 @@ class ShowInfo(View):
         total_salary = round(
             gross_value
             + value_extras
-            - value_parafiscal
+            - value_parafiscal_worker
             + value_bonus
             + value_severance
             + value_severance_interest
@@ -98,7 +102,8 @@ class ShowInfo(View):
             "user": get_object_or_404(Teacher, id=id_user),
             "gross": gross_value,
             "extras": value_extras,
-            "parafiscal": value_parafiscal,
+            "parafiscal_enterprise": value_parafiscal_enterprise,
+            "parafiscal_worker": value_parafiscal_worker,
             "bonus": value_bonus,
             "severance": value_severance,
             "severance_interest": value_severance_interest,

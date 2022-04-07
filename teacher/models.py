@@ -1,21 +1,20 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import MinLengthValidator
+from django.core.validators import (
+    MinLengthValidator,
+    MinValueValidator,
+    MaxValueValidator,
+)
 from django.db import models
 
 
-def validator_cc(value):
-    if not 10000000 <= value <= 9999999999:
-        raise ValidationError(
-            "Invalid number",
-            params={"value": value},
-        )
-
-
 class Teacher(models.Model):
-    cc = models.PositiveIntegerField(unique=True, validators=[validator_cc])
+    cc = models.PositiveIntegerField(
+        unique=True,
+        validators=[MinValueValidator(10000000), MaxValueValidator(9999999999)],
+    )
     name = models.CharField(max_length=100, validators=[MinLengthValidator(3)])
-    work_hour = models.PositiveIntegerField()
-    value_work = models.FloatField()
+    work_hour = models.PositiveIntegerField(validators=[MinValueValidator(0)])
+    value_work = models.FloatField(validators=[MinValueValidator(0.0)])
 
     def __str__(self):
         return self.name
@@ -28,8 +27,12 @@ class Teacher(models.Model):
         return 0
 
     @staticmethod
-    def calculate_parafiscals(gross_balace, parafiscal):
-        return gross_balace * parafiscal
+    def calculate_parafiscal_enterprise(gross_value, extras, parafiscal_enterprise):
+        return (gross_value + extras) * parafiscal_enterprise
+
+    @staticmethod
+    def calculate_parafiscal_worker(gross_value, extras, parafiscal_worker):
+        return (gross_value + extras) * parafiscal_worker
 
     @staticmethod
     def calculate_bonus(gross_balance, bonus):
@@ -40,8 +43,8 @@ class Teacher(models.Model):
         return gross_balance * severance
 
     @staticmethod
-    def calculate_severance_interest(gross_balance, severance_interest):
-        return gross_balance * severance_interest
+    def calculate_severance_interest(severance, severance_interest):
+        return severance * severance_interest
 
     @staticmethod
     def calculate_vacation(gross_balance, vacation):
