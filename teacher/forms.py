@@ -4,7 +4,7 @@ from .models import Teacher
 
 class TeacherCreateForm(forms.ModelForm):
     cc = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Document number'}),
-                             required=True)
+                            required=True)
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Full name'}), required=True)
     work_hour = forms.IntegerField(
         widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Hours worked per week'}), required=True)

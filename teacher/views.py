@@ -38,8 +38,8 @@ class CreateTeacherView(View):
         return render(request, "teacher/create_teacher.html", context)
 
     def post(self, request, *args, **kwargs):
+        form = TeacherCreateForm(request.POST)
         if request.method == "POST":
-            form = TeacherCreateForm(request.POST)
             if form.is_valid():
                 cc = form.cleaned_data.get("cc")
                 name = form.cleaned_data.get("name")
@@ -51,7 +51,7 @@ class CreateTeacherView(View):
                 )
                 t.save()
                 return redirect("teacher:home")
-        context = {}
+        context = {'form': form}
         return render(request, "teacher/create_teacher.html", context)
 
 
@@ -108,3 +108,9 @@ class ShowInfo(View):
             "salary": total_salary,
         }
         return render(request, "teacher/show_info.html", context)
+
+
+class ShowAllTeachers(View):
+    def get(self, requets, *args, **kwargs):
+        context = {}
+        return render(requets,"teacher/show_all.html",context)
