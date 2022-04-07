@@ -6,11 +6,15 @@ from .forms import TeacherCreateForm
 
 extra_hour = 40
 value_extra_hour = 1.5
-parafiscal = 0.09
-bonus = 0.0833
-severance = 0.0833
+parafiscal_enterprise = 0.09
+parafiscal_worker = 0.08
+#0.0833 mensual 0.01917040255
+bonus = 0.01917040255
+severance = 0.01917040255
 severance_interest = 0.01
-vacation = 0.0417
+#0.0417 mensual 0.00959670812
+vacation = 0.00959670812
+
 health = 0.04
 pension = 0.04
 
@@ -38,8 +42,9 @@ class CreateTeacherView(View):
         return render(request, "teacher/create_teacher.html", context)
 
     def post(self, request, *args, **kwargs):
+        form = TeacherCreateForm(request.POST)
         if request.method == "POST":
-            form = TeacherCreateForm(request.POST)
+            print(form.is_valid(),form.errors)
             if form.is_valid():
                 cc = form.cleaned_data.get("cc")
                 name = form.cleaned_data.get("name")
@@ -51,7 +56,7 @@ class CreateTeacherView(View):
                 )
                 t.save()
                 return redirect("teacher:home")
-        context = {}
+        context = {"form":form}
         return render(request, "teacher/create_teacher.html", context)
 
 
@@ -69,13 +74,16 @@ class ShowInfo(View):
             ),
             2,
         )
-        value_parafiscal = round(
-            Teacher.calculate_parafiscals(gross_value, parafiscal), 2
+        value_parafiscal_enterprise= round(
+            Teacher.calculate_parafiscal_enterprise(gross_value,value_extras,parafiscal_enterprise), 2
+        )
+        value_parafiscal_worker= round(
+            Teacher.calculate_parafiscal_worker(gross_value,value_extras,parafiscal_worker), 2
         )
         value_bonus = round(Teacher.calculate_bonus(gross_value, bonus), 2)
         value_severance = round(Teacher.calculate_severance(gross_value, severance), 2)
         value_severance_interest = round(
-            Teacher.calculate_severance_interest(gross_value, severance_interest), 2
+            Teacher.calculate_severance_interest(value_severance, severance_interest), 2
         )
         value_vacation = round(Teacher.calculate_vacation(gross_value, vacation), 2)
         value_health = round(Teacher.calculate_health(gross_value, health), 2)
@@ -84,7 +92,7 @@ class ShowInfo(View):
         total_salary = round(
             gross_value
             + value_extras
-            - value_parafiscal
+            - value_parafiscal_worker
             + value_bonus
             + value_severance
             + value_severance_interest
@@ -98,7 +106,8 @@ class ShowInfo(View):
             "user": get_object_or_404(Teacher, id=id_user),
             "gross": gross_value,
             "extras": value_extras,
-            "parafiscal": value_parafiscal,
+            "parafiscal_enterprise": value_parafiscal_enterprise,
+            "parafiscal_worker": value_parafiscal_worker,
             "bonus": value_bonus,
             "severance": value_severance,
             "severance_interest": value_severance_interest,
