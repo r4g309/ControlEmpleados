@@ -88,18 +88,8 @@ class ShowInfo(View):
         value_health = round(Teacher.calculate_health(gross_value, health), 2)
         value_pension = round(Teacher.calculate_pension(gross_value, pension), 2)
 
-        total_salary = round(
-            gross_value
-            + value_extras
-            - value_parafiscal_worker
-            + value_bonus
-            + value_severance
-            + value_severance_interest
-            + value_vacation
-            - value_health
-            - value_pension,
-            2,
-        )
+        total_salary = round(sum([gross_value, value_extras, value_bonus, value_severance, value_severance_interest,
+                                  value_vacation]) - value_parafiscal_worker - value_health - value_pension, 2)
 
         context = {
             "user": get_object_or_404(Teacher, id=id_user),
@@ -120,5 +110,51 @@ class ShowInfo(View):
 
 class ShowAllTeachers(View):
     def get(self, requets, *args, **kwargs):
-        context = {}
+        total_users = []
+        all_users = Teacher.objects.all()
+        for user in all_users:
+            if user.work_hour <= extra_hour:
+                gross_value = round(user.work_hour * user.value_work, 2)
+            else:
+                gross_value = round(extra_hour * user.value_work, 2)
+
+            value_extras = round(
+                Teacher.calculate_extras_hours(
+                    user.work_hour, user.value_work, extra_hour, value_extra_hour
+                ),
+                2,
+            )
+            value_parafiscal_enterprise = round(
+                Teacher.calculate_parafiscal_enterprise(gross_value, value_extras, parafiscal_enterprise), 2
+            )
+            value_parafiscal_worker = round(
+                Teacher.calculate_parafiscal_worker(gross_value, value_extras, parafiscal_worker), 2
+            )
+            value_bonus = round(Teacher.calculate_bonus(gross_value, bonus), 2)
+            value_severance = round(Teacher.calculate_severance(gross_value, severance), 2)
+            value_severance_interest = round(
+                Teacher.calculate_severance_interest(value_severance, severance_interest), 2
+            )
+            value_vacation = round(Teacher.calculate_vacation(gross_value, vacation), 2)
+            value_health = round(Teacher.calculate_health(gross_value, health), 2)
+            value_pension = round(Teacher.calculate_pension(gross_value, pension), 2)
+
+            total_salary = round(sum([gross_value, value_extras, value_bonus, value_severance, value_severance_interest,
+                                      value_vacation]) - value_parafiscal_worker - value_health - value_pension, 2)
+
+            total_users.append({
+                "user": get_object_or_404(Teacher, id=user.id),
+                "gross": gross_value,
+                "extras": value_extras,
+                "parafiscal_enterprise": value_parafiscal_enterprise,
+                "parafiscal_worker": value_parafiscal_worker,
+                "bonus": value_bonus,
+                "severance": value_severance,
+                "severance_interest": value_severance_interest,
+                "vacation": value_vacation,
+                "health": value_health,
+                "pension": value_pension,
+                "salary": total_salary,
+            })
+        context = {'total_users': total_users}
         return render(requets, "teacher/show_all.html", context)
